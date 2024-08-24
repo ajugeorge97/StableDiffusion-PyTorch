@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
+
 import yaml
 import argparse
 import torch
@@ -15,6 +20,9 @@ from dataset.celeb_dataset import CelebDataset
 from torch.optim import Adam
 from torchvision.utils import make_grid
 
+
+# if torch.backends.mps.is_available():
+#     device= torch.device("mps")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
