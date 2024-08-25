@@ -1,3 +1,9 @@
+import sys
+import os
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
+
+
 import torch
 import torchvision
 import argparse
@@ -105,6 +111,6 @@ def infer(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Arguments for ddpm image generation')
     parser.add_argument('--config', dest='config_path',
-                        default='config/mnist.yaml', type=str)
+                        default='./config/mnist.yaml', type=str)
     args = parser.parse_args()
     infer(args)

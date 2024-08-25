@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
+
 import torch
 import yaml
 import argparse
@@ -46,8 +51,11 @@ def train(args):
                                 im_size=dataset_config['im_size'],
                                 im_channels=dataset_config['im_channels'],
                                 use_latents=True,
+                                debug=True,
                                 latent_path=os.path.join(train_config['task_name'],
-                                                         train_config['vqvae_latent_dir_name'])
+                                                         train_config['vqvae_latent_dir_name'],
+                                                         )
+                                                    
                                 )
     
     data_loader = DataLoader(im_dataset,
@@ -118,6 +126,6 @@ def train(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Arguments for ddpm training')
     parser.add_argument('--config', dest='config_path',
-                        default='config/mnist.yaml', type=str)
+                        default='./config/mnist.yaml', type=str)
     args = parser.parse_args()
     train(args)

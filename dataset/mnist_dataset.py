@@ -15,7 +15,8 @@ class MnistDataset(Dataset):
     """
     
     def __init__(self, split, im_path, im_size, im_channels,
-                 use_latents=False, latent_path=None, condition_config=None):
+                 use_latents=False, latent_path=None, condition_config=None,
+                 debug=False):
         r"""
         Init method for initializing the dataset properties
         :param split: train/test to locate the image files
@@ -23,6 +24,7 @@ class MnistDataset(Dataset):
         :param im_ext: image extension. assumes all
         images would be this type.
         """
+        self.debug = debug
         self.split = split
         self.im_size = im_size
         self.im_channels = im_channels
@@ -60,6 +62,8 @@ class MnistDataset(Dataset):
             fnames = glob.glob(os.path.join(im_path, d_name, '*.{}'.format('png')))
             fnames += glob.glob(os.path.join(im_path, d_name, '*.{}'.format('jpg')))
             fnames += glob.glob(os.path.join(im_path, d_name, '*.{}'.format('jpeg')))
+            if self.debug:
+                fnames=fnames[:500] 
             for fname in fnames:
                 ims.append(fname)
                 if 'class' in self.condition_types:
